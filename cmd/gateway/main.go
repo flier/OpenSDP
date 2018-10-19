@@ -87,7 +87,7 @@ func main() {
 
 				endpointLogger = endpointLogger.Named(endpoint.Name())
 
-				endpointLogger.Info("endpoint is starting")
+				endpointLogger.Info("endpoint started")
 
 				err := endpoint.Serve(ctx)
 

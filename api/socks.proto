@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package sdp;
+
+service SocksProxy {
+  rpc Connect(stream SocksConnectMessage) returns (SocksResponseMessage) {}
+
+  rpc Bind(stream SocksBindMessage) returns (SocksResponseMessage) {}
+}
+
+message Addr {
+  bytes ip = 1;
+  int32 port = 2;
+}
+
+message SocksConnectMessage {
+  oneof payload {
+    SocksConnect connect = 1;
+    bytes chunk = 2;
+  }
+}
+
+message SocksConnect {
+  oneof target {
+    Addr addr = 1;
+    string domain = 2;
+  }
+  string user = 3;
+}
+
+message SocksBindMessage {
+  oneof payload {
+    SocksBind bind = 1;
+    bytes chunk = 2;
+  }
+}
+
+message SocksBind {
+  Addr addr = 1;
+  string user = 2;
+}
+
+message SocksResponseMessage {
+  oneof payload {
+    SocksResponse response = 1;
+    bytes chunk = 2;
+  }
+}
+
+message SocksResponse { int32 status = 1; }
