@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package sdp;
+
+message User {
+
+}
+
+message Credential {
+    oneof payload {
+        UserPassword password = 1;
+    }
+}
+
+message UserPassword {
+    bytes encrypted_password = 1;
+    bytes salt = 2;
+}
